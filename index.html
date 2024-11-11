@@ -1,23 +1,179 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OBI</title>
   </head>
   <body>
     <div id="app">
-
-        <div class="header">
-            <div class="navbar">navbar</div>
-            resto do header
+      <div id="header" class="header">
+        <div class="navbar">
+          <a href="#questao">Questão</a>
+          <a href="#problema">Problema</a>
+          <a href="#explicacao">Explicação</a>
+          <a href="#exemplo">Exemplo Pratico</a>
+          <a href="#solucao">Soluções</a>
         </div>
+      </div>
+      <div class="main-grid">
+        <div class="col"></div>
+        <div class="col main-col">
+          <div id="questao">
+            <h3>Questão 1 - Prova OBI 2023 Nível Sênior</h3>
+            O mais novo lançamento da OBI (Organização de Brincadeiras Infantis)
+            é o jogo Balanceamento de Pirâmide, que visa explorar as habilidades
+            matemáticas das crianças. O jogo contém seis cubos, todos do mesmo
+            tamanho mas com pesos possivelmente diferentes (os cubos são
+            preenchidos com diferentes volumes de areia). O peso de cada cubo em
+            gramas está escrito em uma de suas faces.
+            <img
+              src="./public/quest1.png"
+              alt="6 cubos com os números 6 5 4 14 5 e 8 escritos em uma de suas faces"
+            />
+          </div>
+          <div id="problema">
+            <h3>O Problema</h3>
+            Em Balanceamento de Pirâmide, o objetivo é empilhar os seis cubos de
+            modo a formar uma pirâmide de três andares (com três cubos no
+            primeiro andar, dois no segundo e um no terceiro) tal que os pesos
+            totais de cada andar (ou seja, a soma dos pesos dos cubos no andar)
+            possuam o mesmo valor; nesse caso, dizemos que a pirâmide é
+            balanceada.
+            <br />
+            Para que a Pirâmide seja balanceada, é necessário que a soma dos
+            pesos dos cubos em cada andar seja igual aos outros
+            <br />
+            Veja a seguir:
+            <img
+              draggable="true"
+              src="./public/piramides.png"
+              alt="piramide balanceada de peso 14 e piramide nao balanceada"
+            />
+          </div>
+          <div id="explicacao">
+            <h3>Explicação</h3>
+            Dada uma lista com 6 numeros inteiros entre 1 e 1000, devemos
+            determinar se é possivel formar uma piramide cujos pesos em cada
+            andar sejam iguais aos outros andares, mas, para isso temos algumas
+            condições, vamos dizer que cada andar tem um peso X, logo o peso
+            total dos cubos deve ser 3X para que possa ser balanceado. E claro,
+            como o primeiro andar só terá um peso, este deve ser igual a um
+            terço do peso total. E último, pegamos o peso maior para o primeiro
+            andar e então devemos pegar mais dois pesos para o segundo andar,
+            dado que as ultimas duas condições foram cumpridas, não há
+            necessidade de verificar os ultimos três pesos restantes.
+          </div>
+          <div id="exemplo">
+            <h3>Exemplo Prático</h3>
+            <div class="interativo">
+              <div class="lista">
+                <div id="elemento1" class="elemento">4</div>
+                <div id="elemento2" class="elemento">5</div>
+                <div id="elemento3" class="elemento">8</div>
+                <div id="elemento4" class="elemento">13</div>
+                <div id="elemento5" class="elemento">4</div>
+                <div id="elemento6" class="elemento">17</div>
+              </div>
+              <div id="pesos">
+                Peso Andar 1: 0 Peso Andar 2: 0 Peso Andar 3: 0
+              </div>
+              <div class="piramide">
+                <div class="line"></div>
+                <div id="andar1" class="andar"></div>
+                <div class="line"></div>
+                <div id="andar2" class="andar"></div>
+                <div class="line"></div>
+                <div id="andar3" class="andar"></div>
+              </div>
+            </div>
+          </div>
 
-        <div class="content">conteúdo</div>
+          <div id="solucao">
+            <h3>Soluções</h3>
+            <h4>C++</h4>
+            <pre>
+              <code>
+                <p>Mateus Bezrutchka</p>
+<p>#include <iostream></p>
+<p>#include <algorithm></p>
+<p>using namespace std;</p>
+<p>int main() {</p>
+<p>  // l&ecirc; numeros em um vetor e guarda a soma</p>
+<p> int v[6];</p>
+<p> int soma = 0;</p>
+<p> for (int i = 0; i &lt;  6; i++) {</p>
+<p>    cin >> v[i];</p>
+<p>    soma += v[i];</p>
+<p> }</p>
+<p>  // se a soma nao é divisivel por 3, é impossivel</p>
+<p> if (soma % 3 != 0) {</p>
+<p>    cout &lt;&lt; "N" &lt;&lt; endl;</p>
+<p>    return 0;</p>
+<p> }</p>
+<p>  // o maior valor deve estar no terceiro andar</p>
+<p> sort(v, v + 6);</p>
+<p> if (v[5] != soma / 3) {</p>
+<p>    cout &lt;&lt; &quot;N&quot; &lt;&lt; endl;</p>
+<p>    return 0;</p>
+<p> }</p>
+<p> // temos que achar outros dois pro segundo andar</p>
+<p> for (int i = 0; i &lt; 5; i++) {</p>
+<p>    for (int k = i + 1; k &lt; 5; k++) {</p>
+<p>       if (v[i] + v[k] == soma / 3) {</p>
+<p>       cout &lt;&lt; &quot;S&quot; &lt;&lt; endl;</p>
+<p>       return 0;</p>
+<p>       }</p>
+<p>    }</p>
+<p> }</p>
+<p> // nao achamos par pro segundo andar</p>
+<p> cout &lt;&lt; &quot;N&quot; &lt;&lt; endl;</p>
+<p> return 0;</p>
+<p>}</p>
+              </code>
+            </pre>
+            <h4>JavaScript</h4>
+            <pre>
+              <code>
+<p>Mateus Bezrutchka</p>
+<p>// l&ecirc; numeros em um vetor e guarda a soma</p>
+<p>var v = Array(6);</p>
+<p>var soma = 0;</p>
+<p>for (var i = 0; i &lt; 6; i++) {</p>
+<p>  scanf(&quot;%d&quot;, &quot;v[i]&quot;);</p>
+<p>  soma += v[i];</p>
+<p>}</p>
+<p>// se a soma nao &eacute; divisivel por 3, &eacute; impossivel</p>
+<p>if (soma % 3 != 0) {</p>
+<p>   printf(&quot;N\n&quot;);</p>
+<p>   return;</p>
+<p>}</p>
+<p>// ordena&ccedil;&atilde;o por valor numerico</p>
+<p>v.sort(function(a, b) { return a - b });</p>
+<p>// o maior valor deve estar no terceiro andar</p>
+<p>if (v[5] != soma / 3) {</p>
+<p>   printf(&quot;N\n&quot;);</p>
+<p>   return;</p>
+<p>}</p>
+<p>// temos que achar outros dois pro segundo andar</p>
+<p>for (var i = 0; i &lt; 5; i++) {</p>
+<p>   for (var k = i + 1; k &lt; 5; k++) {</p>
+<p>     if (v[i] + v[k] == soma / 3) {</p>
+<p>     printf(&quot;S\n&quot;);</p>
+<p>     return;</p>
+<p>     }</p>
+<p>   }</p>
+<p>}</p>
+<p>// se chegamos aqui, nao achamos par pro segundo andar</p>
 
-        <div class="footer">footer</div>
-
+<p>printf(&quot;N\n&quot;);</p>
+              </code>
+            </pre>
+          </div>
+        </div>
+        <div class="col"></div>
+      </div>
     </div>
     <script type="module" src="/main.js"></script>
   </body>
